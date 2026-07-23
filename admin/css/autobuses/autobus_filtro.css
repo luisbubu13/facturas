@@ -1,0 +1,107 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - PANEL DE FILTROS DE AUTOBUSES (SEARCH DECK)
+   =============================================================================
+   @file:        facturas/admin/css/autobuses/autobuses_filtro.css
+   @description: Gobierna la visualización, alineación y comportamiento adaptivo
+                 del panel de búsqueda y filtrado dinámico de unidades.
+   @architecture: Flexbox dinámico con envoltorio (Wrap) y umbrales mínimos.
+   ============================================================================= */
+
+/* =============================================================================
+   1. CONTENEDOR PERIMETRAL DE LA SECCIÓN (FILTER CARD)
+   ============================================================================= */
+.filtro {
+    background-color: rgb(245, 242, 235);
+    border: 2px solid rgb(110, 60, 180); /* Delimitador visual morado institucional */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* -----------------------------------------------------------------------------
+   1.1 FLUJO DEL FORMULARIO PRINCIPAL
+   ----------------------------------------------------------------------------- */
+.filtro form {
+    display: flex;
+    flex-wrap: wrap;    /* Permite que los inputs bajen de fila si la pantalla se reduce */
+    align-items: end;   /* Nivela la base de inputs y botones contrarrestando la altura del label */
+    gap: 20px;          /* Espaciado uniforme de rejilla elástica */
+}
+
+/* =============================================================================
+   2. GRUPOS DE CAPTURA INDIVIDUALES (INPUT FORM GROUPS)
+   ============================================================================= */
+.grupo {
+    display: flex;
+    flex-direction: column; /* Apila el label encima del input/select correspondientemente */
+    min-width: 220px;       /* Umbral mínimo de seguridad para evitar que el input se colapse */
+}
+
+.grupo label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: rgb(60, 60, 60);
+}
+
+/* -----------------------------------------------------------------------------
+   2.1 CAMPOS DE ENTRADA Y ENFOQUES INTERACTIVOS
+   ----------------------------------------------------------------------------- */
+.grupo input,
+.grupo select {
+    padding: 10px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Feedback de Foco: Resalta el borde al color morado de la marca cuando recibe actividad */
+.grupo input:focus,
+.grupo select:focus {
+    outline: none;
+    border-color: rgb(110, 60, 180);
+}
+
+/* =============================================================================
+   3. DECK DE BOTONES DE ACCIÓN (SEARCH & CLEAN CONTROLS)
+   ============================================================================= */
+.botones {
+    display: flex;
+    gap: 10px; /* Separación interna entre el botón de envío y el de limpieza */
+}
+
+/* -----------------------------------------------------------------------------
+   3.1 DISPARADOR DE BÚSQUEDA (SUBMIT BUTTON)
+   ----------------------------------------------------------------------------- */
+.botones button {
+    border: none;
+    background-color: rgb(110, 60, 180);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.botones button:hover {
+    background-color: rgb(90, 40, 160); /* Tono morado profundo en hover */
+}
+
+/* -----------------------------------------------------------------------------
+   3.2 ENLACE REESTABLECEDOR DE FILTROS (CLEAR / REVERT LINK)
+   ----------------------------------------------------------------------------- */
+.btnLimpiar {
+    text-decoration: none; /* Remueve la línea inferior del tag <a> */
+    background-color: rgb(200, 200, 200); /* Tono gris pasivo neutral */
+    color: black;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.btnLimpiar:hover {
+    background-color: rgb(180, 180, 180);
+}

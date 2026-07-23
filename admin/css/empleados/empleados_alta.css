@@ -1,0 +1,127 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - ALTA Y EDICIÓN DE EMPLEADOS (FORM LAYOUT)
+   =============================================================================
+   @file:        facturas/admin/css/empleados/empleados_alta.css
+   @description: Gobierna la visualización y consistencia de la tarjeta flotante
+                 para la captura de credenciales y asignación de roles de personal.
+   @architecture: Tarjeta fija con Flexbox para centrado absoluto en pantalla (Card View).
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL Y ENTORNO CANVA (RESET & BOX MODEL)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Protege las proporciones al calcular paddings */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh; /* Extiende el fondo al total de la altura de ventana */
+    
+    /* Flexbox: Mantiene la tarjeta perfectamente encuadrada en el centro */
+    display: flex;
+    justify-content: center; /* Alineación horizontal */
+    align-items: center;     /* Alineación vertical */
+    
+    margin: 3% 0; /* Margen de seguridad perimetral */
+}
+
+/* =============================================================================
+   2. TARJETA FLOTANTE CONTENEDORA (FORM CARD CONTAINER)
+   ============================================================================= */
+.contenedor {
+    width: 500px; /* Ancho idóneo para lectura y captura en pantallas medianas y grandes */
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    overflow: hidden; /* Recorta la marquesina h2 para alinearse al border-radius */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Marquesina de título de la sección */
+h2 {
+    background-color: rgb(110, 60, 180); /* Color de marca principal (Morado) */
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+/* =============================================================================
+   3. CONTROLES DE RETORNO Y NAVEGACIÓN (ESCAPE DECK)
+   ============================================================================= */
+.barra {
+    padding: 15px 25px 0px 25px; /* Margen interno con desfase inferior en cero */
+}
+
+/* Enlace simple para abortar la captura y regresar al datagrid */
+.btnRegresar {
+    text-decoration: none;
+    color: rgb(110, 60, 180);
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* =============================================================================
+   4. ESTRUCTURA INTERNA DEL FORMULARIO DE CAPTURA
+   ============================================================================= */
+form {
+    padding: 25px;
+    display: flex;
+    flex-direction: column; /* Apilamiento secuencial descendente */
+    gap: 10px;              /* Separación automatizada entre inputs */
+}
+
+label {
+    font-weight: bold;
+    color: rgb(60, 60, 60);
+}
+
+/* -----------------------------------------------------------------------------
+   4.1 CAPTURA DE TEXTO E INTERACCIÓN FOCAL (INPUT FIELDS)
+   ----------------------------------------------------------------------------- */
+input {
+    padding: 10px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+}
+
+/* Feedback de Foco: Cambia el color del borde perimetral al escribir */
+input:focus {
+    outline: none;
+    border-color: rgb(110, 60, 180);
+}
+
+/* -----------------------------------------------------------------------------
+   4.2 BANNER DINÁMICO DE VALIDACIONES (JS NOTIFICATIONS BLOCK)
+   ----------------------------------------------------------------------------- */
+/**
+ * Reserva un alto mínimo constante para alojar strings informativos inyectados
+ * por Javascript (Ej: "El nombre de usuario ya está en uso"), evitando saltos bruscos
+ * de los elementos inferiores al renderizarse el texto en pantalla.
+ */
+#mensajeEmpleado {
+    min-height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* -----------------------------------------------------------------------------
+   4.3 DISPARADOR DE GUARDADO / ACCIÓN CRÍTICA (SUBMIT CONTROL)
+   ----------------------------------------------------------------------------- */
+button {
+    margin-top: 15px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(110, 60, 180);
+    color: white;
+    font-weight: bold;
+    cursor: pointer; /* Cambia puntero a interactivo (mano) */
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: rgb(90, 40, 160); /* Tono morado profundo en hover */
+}

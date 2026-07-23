@@ -1,0 +1,178 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - HOJA DE DATOS GENERAL (DATAGRID MAESTRO)
+   =============================================================================
+   @file:        facturas/css/facturas.css
+   @description: Hoja de estilos que gobierna las listas de reportes, tablas
+                 médula de facturas, paginadores y etiquetas de estados dinámicos.
+   @architecture: CSS Grid para alineación de columnas y Flexbox para paginación.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL (RESET)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh;
+    padding: 30px;
+    margin: 3% 0;
+}
+
+/* Contenedor adaptativo de datos */
+.contenedor {
+    width: 95%;
+    margin: auto;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    overflow: hidden; /* Mantiene los fondos recortados en esquinas redondeadas */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, .2);
+}
+
+h1 {
+    padding: 25px;
+    text-align: center;
+    color: rgb(110, 60, 180);
+}
+
+/* =============================================================================
+   2. ESTRUCTURA REJILLA DE DATOS (CSS GRID DATAGRID)
+   ============================================================================= */
+/**
+ * ARQUITECTURA SIMÉTRICA:
+ * Aplica exactamente la misma distribución tanto al bloque de títulos (encabezado)
+ * como a los registros (fila), asegurando un match perfecto de columnas.
+ * Columnas: ID/Selector (50px) | Info Primaria (Proporcional 2fr) | 5 columnas estables fijas.
+ */
+.encabezado,
+.fila {
+    display: grid;
+    grid-template-columns:
+        50px
+        2fr
+        90px
+        130px
+        140px
+        140px
+        170px
+        90px;
+    align-items: center; /* Alinea verticalmente los contenidos de diferentes altos */
+}
+
+/* Cabecera rígida de columnas */
+.encabezado {
+    background-color: rgb(110, 60, 180);
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+}
+
+/* Filas dinámicas de datos */
+.fila {
+    padding: 15px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+/* Zebra Striping: Alterna el fondo en filas pares para incrementar legibilidad */
+.fila:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+
+/* Feedback interactivo: Ilumina la fila actual al pasar el puntero */
+.fila:hover {
+    background-color: rgb(225, 225, 225);
+}
+
+/* =============================================================================
+   3. COMPONENTES: BADGES DE ESTADO (STATUS CHIPS)
+   ============================================================================= */
+.estado {
+    display: inline-block;
+    padding: 7px 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.registrada {
+    background-color: rgb(220, 180, 20); /* Amarillo/Mostaza */
+}
+
+.proceso {
+    background-color: rgb(255, 140, 0); /* Naranja */
+}
+
+.entregada {
+    background-color: rgb(40, 160, 70); /* Verde Operativo */
+}
+
+.cancelada {
+    background-color: rgb(210, 50, 50); /* Rojo Alerta */
+}
+
+/* =============================================================================
+   4. ACCIONES UNITARIAS Y HERRAMIENTAS (ICONS/LINKS)
+   ============================================================================= */
+.accion {
+    text-align: center;
+}
+
+.accion a {
+    text-decoration: none;
+    font-size: 1.4rem;
+    transition: .2s;
+}
+
+/* Micro-interacción: Hace crecer el icono de acción al hacer hover */
+.accion a:hover {
+    font-size: 1.6rem;
+}
+
+/* Inputs de selección masiva (Checkboxes de control de lotes) */
+.chkFactura {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* =============================================================================
+   5. NAVEGADOR DE PÁGINAS (PAGINATION BAR)
+   ============================================================================= */
+.paginacion {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Envuelve los botones si el total supera el ancho de la pantalla */
+}
+
+.paginacion a {
+    text-decoration: none;
+    color: rgb(110, 60, 180);
+    border: 2px solid rgb(110, 60, 180);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.paginacion a:hover {
+    background-color: rgb(110, 60, 180);
+    color: white;
+}
+
+/* Botón o marcador de página activa actual */
+.paginacion .actual {
+    background-color: rgb(110, 60, 180);
+    color: white;
+    border: 2px solid rgb(110, 60, 180);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}

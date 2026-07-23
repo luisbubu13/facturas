@@ -1,0 +1,13 @@
+# Archivos de Docker
+.env
+mysql_data/
+
+# Logs
+*.log
+
+# Archivos temporales de Windows
+Thumbs.db
+Desktop.ini
+
+# Configuración de VS Code (opcional)
+.vscode/

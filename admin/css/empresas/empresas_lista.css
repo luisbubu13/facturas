@@ -1,0 +1,123 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - LISTADO DE EMPRESAS (DATAGRID MAESTRO)
+   =============================================================================
+   @file:        facturas/admin/css/empresas/empresas_lista.css
+   @description: Gobierna la presentación visual, alineación de rejilla y 
+                 comportamientos de interacción del catálogo de empresas/rutas.
+   @architecture: CSS Grid proporcional para columnas y Flexbox para utilerías.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL Y ENTORNO LIENZO (RESET & CANVAS)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh;
+    margin: 3% 0;
+}
+
+/* Contenedor central del módulo */
+.contenedor {
+    width: 90%;
+    min-height: 90vh;
+    margin: 20px auto;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, .2);
+}
+
+/* =============================================================================
+   2. BARRA DE COMANDOS SUPERIOR (ACTION DECK)
+   ============================================================================= */
+.barra_superior {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón de inserción al extremo superior derecho */
+}
+
+/* Botón de acceso al formulario de alta */
+.btn_agregar {
+    text-decoration: none;
+    background-color: rgb(110, 60, 180); /* Color de identidad corporativa (Morado) */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+    transition: .2s;
+}
+
+.btn_agregar:hover {
+    background-color: rgb(90, 40, 160); /* Tono morado profundo en hover */
+}
+
+/* =============================================================================
+   3. ARQUITECTURA DE LA REJILLA DE DATOS (CSS GRID CORES)
+   ============================================================================= */
+/**
+ * MAQUETACIÓN SIMÉTRICA DE COLUMNAS:
+ * Distribución de ancho por celdas:
+ * ID Empresa (100px) | Razón Social / Nombre (1fr - Flexible) | Editar (100px) | Eliminar (100px)
+ */
+.encabezado,
+.fila {
+    display: grid;
+    grid-template-columns: 
+        100px 
+        1fr 
+        100px 
+        100px;
+    align-items: center; /* Alineación simétrica vertical de datos */
+}
+
+/* Renglón rígido de títulos de columna */
+.encabezado {
+    background-color: rgb(110, 60, 180);
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 6px 6px 0 0; /* Suaviza las esquinas superiores de la tabla */
+}
+
+/* Filas dinámicas extraídas del query */
+.fila {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+/* Zebra Striping: Sombreado alternado en renglones pares para facilitar el rastreo visual */
+.fila:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+
+/* Feedback táctil al posicionar el cursor sobre un registro */
+.fila:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+/* =============================================================================
+   4. BLOQUE DE ENLACES DE ACCIÓN UNITARIA (CRUD LINKS)
+   ============================================================================= */
+.accion {
+    text-align: center;
+}
+
+.accion a {
+    text-decoration: none;
+    font-size: 1.3rem; /* Escala base para fuentes tipográficas de iconos */
+    display: inline-block;
+    transition: .2s;
+}
+
+/* Micro-interacción: crecimiento focalizado al posicionarse sobre el icono */
+.accion a:hover {
+    font-size: 1.5rem;
+}

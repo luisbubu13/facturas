@@ -1,0 +1,188 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - MAQUETACIÓN VISUAL DEL MENÚ COMPUESTO
+   =============================================================================
+   @file:        facturas/css/menu.css
+   @description: Define la hoja de estilos estructural para el componente común
+                 de navegación superior y el panel de filtros analíticos.
+   @architecture: Flexbox para flujos lineales y CSS Grid para formularios multidimensionales.
+   ============================================================================= */
+
+/* =============================================================================
+   1. CONTENEDOR MAESTRO (ENCAPSULADOR GENERAL)
+   ============================================================================= */
+.menu {
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden; /* Recorta los bordes de los hijos para respetar el border-radius */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, .2);
+}
+
+/* =============================================================================
+   2. FILA 1: BARRA DE IDENTIFICACIÓN (USER & BRANDING LOGO)
+   ============================================================================= */
+.fila1 {
+    background-color: rgb(245, 242, 235);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between; /* Envía la info del usuario a la izquierda y el logo a la derecha */
+    align-items: center;
+}
+
+/* Bloque contenedor del nickname, avatar u hoja de estilos del operador */
+.usuario {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaciado automático entre elementos del bloque usuario */
+    font-weight: bold;
+    color: rgb(60, 60, 60);
+    font-size: 18px;
+}
+
+.logo {
+    height: 50px; /* Mantiene la proporción de aspecto controlando solo la altura */
+}
+
+/* =============================================================================
+   3. FILA 2: CABECERA DINÁMICA DEL MÓDULO (TITULO DE SECCIÓN)
+   ============================================================================= */
+.fila2 {
+    background-color: rgb(245, 242, 235);
+    color: rgb(110, 60, 180); /* Color corporativo principal (Morado) */
+    text-align: center;
+    padding: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    border-top: 1px solid rgb(220, 220, 220);
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+/* =============================================================================
+   4. FILA 3: BOTONERA DE COMANDOS (ACCIONES DE NAVEGACIÓN)
+   ============================================================================= */
+.fila3 {
+    background-color: rgb(245, 242, 235);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Si los botones exceden el ancho de la pantalla, bajan de forma limpia */
+}
+
+/* -----------------------------------------------------------------------------
+   4.1 ESTILOS COMPARTIDOS DE LOS BOTONES
+   ----------------------------------------------------------------------------- */
+.btnMenu,
+.btnSalir {
+    text-decoration: none; /* Elimina la línea inferior nativa de las etiquetas <a> */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .2s; /* Suaviza las animaciones de escalado y color (Hover) */
+}
+
+/* -----------------------------------------------------------------------------
+   4.2 BOTÓN DE MENÚ ESTÁNDAR (ESTILO OUTLINE)
+   ----------------------------------------------------------------------------- */
+.btnMenu {
+    text-decoration: none;
+    color: rgb(110, 60, 180);
+    border: 2px solid rgb(110, 60, 180);
+    background-color: transparent;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.btnMenu:hover {
+    background-color: rgb(110, 60, 180);
+    color: white;
+    transform: scale(1.05); /* Efecto visual micro-interactivo de agrandamiento */
+}
+
+/* -----------------------------------------------------------------------------
+   4.3 BOTÓN DE SALIDA / DESCONEXIÓN (ESTILO SÓLIDO ALERTA)
+   ----------------------------------------------------------------------------- */
+.btnSalir {
+    background-color: rgb(200, 60, 60);
+}
+
+.btnSalir:hover {
+    background-color: rgb(170, 40, 40);
+}
+
+/* =============================================================================
+   5. FILA 4: PANEL DE FILTRADO Y BÚSQUEDA AVANZADA (DATAGRID FILTERS)
+   ============================================================================= */
+.fila4 {
+    background-color: rgb(245, 242, 235);
+    border-top: 1px solid rgb(220, 220, 220);
+    padding: 20px;
+}
+
+/* Grid de control: Distribuye 6 columnas simétricas y 2 automáticas para los botones */
+.formFiltros {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr) auto auto;
+    gap: 15px;
+    align-items: end; /* Alinea los inputs en la base baja para contrarrestar los altos de los labels */
+}
+
+.formFiltros label {
+    display: block;
+    margin-bottom: 5px;
+    color: rgb(110, 60, 180);
+    font-weight: bold;
+}
+
+.formFiltros input,
+.formFiltros select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+}
+
+.accionesUsuario{
+
+    display:flex;
+
+    gap:10px;
+}
+
+.btnBackup{
+
+    text-decoration:none;
+
+    background-color:rgb(50,140,70);
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:5px;
+
+    font-weight:bold;
+
+    transition:.2s;
+}
+
+.btnBackup:hover{
+
+    background-color:rgb(35,110,55);
+}
+
+/* =============================================================================
+   6. RESPONSIVE DESIGN (BREAKPOINTS DE ADAPTACIÓN MÓVIL)
+   ============================================================================= */
+/**
+ * Intercepta pantallas iguales o menores a 1000px (Tablets y Smartphones).
+ * Rompe la estructura horizontal convirtiendo la rejilla en una lista vertical indexada.
+ */
+@media(max-width: 1000px) {
+    .formFiltros {
+        grid-template-columns: 1fr; /* Una sola columna que abarca el 100% del contenedor */
+    }
+}

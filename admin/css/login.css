@@ -1,0 +1,104 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - INTERFAZ DE AUTENTICACIÓN ADMIN (LOGIN CARD)
+   =============================================================================
+   @file:        facturas/admin/css/login.css
+   @description: Gestiona la presentación visual de la pasarela de acceso exclusiva
+                 para el personal administrativo (Puesto = 2).
+   @architecture: Flexbox para centrado absoluto en pantalla y flujo vertical de inputs.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL (RESET & NORMALIZACIÓN)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Garantiza que los paddings no alteren el ancho de los inputs */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =============================================================================
+   2. ENTORNO DE FONDO (CANVAS / BODY CONTENEDOR)
+   ============================================================================= */
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh; /* Fuerza al contenedor a abarcar la altura completa de la ventana */
+    
+    /* Flexbox: Centrado milimétrico y absoluto de la tarjeta en el viewport */
+    display: flex;
+    justify-content: center; /* Alineación horizontal */
+    align-items: center;     /* Alineación vertical */
+    
+    margin: 3% 0; /* Espaciado de seguridad perimetral */
+}
+
+/* =============================================================================
+   3. TARJETA CONTENEDORA PRINCIPAL (LOGIN BOX)
+   ============================================================================= */
+.contenedor {
+    width: 400px;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    overflow: hidden; /* Fuerza al título h2 a respetar las esquinas redondeadas */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Encabezado o marquesina de la tarjeta */
+h2 {
+    background-color: rgb(110, 60, 180); /* Color de identidad institucional (Morado) */
+    color: white;
+    text-align: center;
+    padding: 18px;
+}
+
+/* =============================================================================
+   4. ESTRUCTURA INTERNA DEL FORMULARIO
+   ============================================================================= */
+form {
+    padding: 25px;
+    display: flex;
+    flex-direction: column; /* Alinea los elementos uno debajo de otro */
+    gap: 10px;              /* Separación automática uniforme entre labels e inputs */
+}
+
+label {
+    font-weight: bold;
+    color: rgb(60, 60, 60);
+}
+
+/* -----------------------------------------------------------------------------
+   4.1 CAMPOS DE CAPTURA (INPUT TEXT / PASSWORD)
+   ----------------------------------------------------------------------------- */
+input {
+    padding: 10px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Estado Focus: Resalta visualmente el input activo donde está escribiendo el usuario */
+input:focus {
+    outline: none; /* Remueve el borde azul nativo del navegador */
+    border-color: rgb(110, 60, 180); /* Aplica el morado de la marca */
+}
+
+/* -----------------------------------------------------------------------------
+   4.2 DISPARADOR DE ACCIÓN DE ACCESO (SUBMIT BUTTON)
+   ----------------------------------------------------------------------------- */
+button {
+    margin-top: 15px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(110, 60, 180);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer; /* Cambia el cursor a modo interactivo (mano) */
+    transition: 0.2s; /* Suaviza la transición de color del efecto Hover */
+}
+
+/* Efecto Hover: Oscurece el botón al posicionar el cursor sobre él */
+button:hover {
+    background-color: rgb(90, 40, 160);
+}

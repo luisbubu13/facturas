@@ -1,0 +1,179 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - VISTA DETALLE DE FACTURACIÓN (INVOICE BREAKDOWN)
+   =============================================================================
+   @file:        facturas/css/factura_detalle.css
+   @description: Gobierna la interfaz visual de la vista detallada de facturas.
+                 Maneja estructuras híbridas de rejillas informativas, tablas
+                 de partidas y un desglose alineado de totales financieros.
+   @architecture: Grid de dos columnas, tablas colapsadas y adaptabilidad elástica.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL Y CAJA DE ENTORNO (RESET & CANVAS)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh;
+    padding: 30px;
+    margin: 3% 0;
+}
+
+/* Lienzo tipo hoja de reporte o factura física */
+.contenedor {
+    width: 90%;
+    margin: auto;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, .2);
+}
+
+/* =============================================================================
+   2. ENCABEZADOS Y ELEMENTOS SEPARADORES
+   ============================================================================= */
+h1 {
+    text-align: center;
+    color: rgb(110, 60, 180); /* Color de identidad corporativa */
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: rgb(110, 60, 180);
+    margin-bottom: 20px;
+}
+
+hr {
+    margin: 35px 0;
+    border: 0;
+    border-top: 1px solid rgb(220, 220, 220); /* Línea divisoria tenue */
+}
+
+/* =============================================================================
+   3. SECCIÓN INFORMATIVA DE METADATOS (METADATA CARDS)
+   ============================================================================= */
+/* Rejilla de doble columna para emparejar campos (Ej: Emisor vs Receptor) */
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Tarjeta unitaria contenedora de dato/valor */
+.campo {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, .1);
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 8px;
+    color: rgb(110, 60, 180);
+    font-weight: bold;
+}
+
+.campo span {
+    color: rgb(60, 60, 60); /* Tono gris oscuro para alta legibilidad del dato */
+}
+
+/* =============================================================================
+   4. TABLA DE PARTIDAS O CONCEPTOS DESGLOSADOS (INVOICE ITEMS TABLE)
+   ============================================================================= */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Elimina el espacio nativo entre bordes de celdas */
+    margin-top: 20px;
+}
+
+th {
+    background-color: rgb(110, 60, 180);
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+/* Estilo Zebra para simplificar el rastreo visual de renglones */
+tr:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+
+/* Iluminación de respuesta táctil en hover */
+tr:hover {
+    background-color: rgb(225, 225, 225);
+}
+
+/* =============================================================================
+   5. RESUMEN DE IMPORTES Y TOTALES FINANCIEROS (SUMMARY BOX)
+   ============================================================================= */
+.totales {
+    width: 300px;
+    margin-top: 30px;
+    margin-left: auto; /* Empuja magnéticamente toda la caja hacia el extremo derecho */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, .1);
+}
+
+.totales p {
+    margin-bottom: 12px;
+    font-weight: bold;
+    color: rgb(60, 60, 60);
+}
+
+/* =============================================================================
+   6. CONTROLES Y HERRAMIENTAS DE NAVEGACIÓN (ACTION BUTTONS)
+   ============================================================================= */
+.barra {
+    margin-bottom: 20px; /* Contenedor superior para botones de retorno */
+}
+
+.btnRegresar {
+    text-decoration: none;
+    color: rgb(110, 60, 180);
+    border: 2px solid rgb(110, 60, 180);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.btnRegresar:hover {
+    background-color: rgb(110, 60, 180);
+    color: white;
+}
+
+/* =============================================================================
+   7. ADAPTABILIDAD RESPONSIVA (MEDIA QUERIES)
+   ============================================================================= */
+@media(max-width: 800px) {
+    /* Rompe las dos columnas de metadatos y las apila de forma vertical */
+    .info {
+        grid-template-columns: 1fr;
+    }
+
+    /* La caja de totales se expande al ancho completo del contenedor principal */
+    .totales {
+        width: 100%;
+    }
+
+    /* Evita que la tabla de conceptos rompa la pantalla, encapsulando un scroll horizontal */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap; /* Mantiene la consistencia de las columnas al scrollear */
+    }
+}

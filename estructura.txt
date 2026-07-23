@@ -1,0 +1,100 @@
+Listado de rutas de carpetas para el volumen LSOR
+El número de serie del volumen es 000000BA 2AA0:7675
+L:.
+¦   facturas.php
+¦   factura_alta.php
+¦   factura_detalle.php
+¦   index.php
+¦   menu.php
+¦   estructura.txt
+¦   
++---admin
+¦   ¦   autobuses_lista.php
+¦   ¦   autobus_alta.php
+¦   ¦   autobus_edita.php
+¦   ¦   autobus_filtro.php
+¦   ¦   bienvenido.php
+¦   ¦   empleados_alta.php
+¦   ¦   empleados_edita.php
+¦   ¦   empleados_lista.php
+¦   ¦   empresas_lista.php
+¦   ¦   empresa_alta.php
+¦   ¦   empresa_edita.php
+¦   ¦   facturas_chartdb.sql
+¦   ¦   facturas_crear_BD.sql
+¦   ¦   index.php
+¦   ¦   menu.php
+¦   ¦   provedor_alta.php
+¦   ¦   provedor_edita.php
+¦   ¦   provedor_lista.php
+¦   ¦   facturas.sql
+¦   ¦   
+¦   +---fotos
+¦   ¦       logo.png
+¦   ¦       
+¦   +---css
+¦   ¦   ¦   bienvenido.css
+¦   ¦   ¦   login.css
+¦   ¦   ¦   menu.css
+¦   ¦   ¦   
+¦   ¦   +---provedores
+¦   ¦   ¦       provedores_alta.css
+¦   ¦   ¦       provedores_lista.css
+¦   ¦   ¦       
+¦   ¦   +---empleados
+¦   ¦   ¦       empleados_alta.css
+¦   ¦   ¦       empleados_lista.css
+¦   ¦   ¦       
+¦   ¦   +---empresas
+¦   ¦   ¦       empresas_lista.css
+¦   ¦   ¦       empresa_alta.css
+¦   ¦   ¦       
+¦   ¦   +---autobuses
+¦   ¦   ¦       autobuses_lista.css
+¦   ¦   ¦       autobus_alta.css
+¦   ¦   ¦       autobus_filtro.css
+¦   ¦   ¦       
+¦   ¦   +---facturas
+¦   +---funciones
+¦   ¦       autobus_elimina.php
+¦   ¦       conecta.php
+¦   ¦       empleados_elimina.php
+¦   ¦       empresa_elimina.php
+¦   ¦       logout.php
+¦   ¦       provedor_elimina.php
+¦   ¦       validar_login.php
+¦   ¦       valida_sesion.php
+¦   ¦       verificar_autobus.php
+¦   ¦       verificar_empleado.php
+¦   ¦       verificar_empresa.php
+¦   ¦       verificar_provedor.php
+¦   ¦       
+¦   +---js
+¦           autobus_alta.js
+¦           empleados_alta.js
+¦           empresa_alta.js
+¦           jquery-3.1.1.min.js
+¦           provedor_alta.js
+¦           
++---css
+¦       facturas.css
+¦       factura_alta.css
+¦       factura_detalle.css
+¦       login.css
+¦       menu.css
+¦       select2.min.css
+¦       
++---funciones
+¦       factura_accion.php
+¦       imprimir_facturas.php
+¦       logout.php
+¦       validar_login.php
+¦       valida_sesion.php
+¦       respaldo.php
+¦       
++---js
+        facturas_acciones.js
+        factura_alta.js
+        jquery-3.1.1.min.js
+        select2.min.js
+        

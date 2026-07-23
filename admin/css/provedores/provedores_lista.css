@@ -1,0 +1,137 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - LISTADO DE PROVEEDORES (DATAGRID MAESTRO)
+   =============================================================================
+   @file:        facturas/admin/css/provedores/provedores_lista.css
+   @description: Gobierna la interfaz visual del catálogo de proveedores. Controla
+                 la alineación de columnas, estados interactivos y botones de alta.
+   @architecture: CSS Grid proporcional para registros y Flexbox para el canvas global.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL Y ENTORNO CANVA (RESET & BOX MODEL)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Previene alteraciones de ancho por el uso de padding */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    margin: 3% 0;
+    min-height: 100vh; /* Extiende el fondo al total de la altura de la ventana */
+    
+    /* Flexbox: Centrado absoluto del contenedor principal en el viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Lienzo contenedor del módulo */
+.contenedor {
+    width: 90%;
+    min-height: 90vh;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    overflow: hidden; /* Fuerza a las filas extremas a respetar las esquinas redondeadas */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* =============================================================================
+   2. BARRA DE COMANDOS SUPERIOR (ACTION DECK)
+   ============================================================================= */
+.barra_superior {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón de inserción al extremo derecho */
+    background-color: rgb(245, 242, 235);
+}
+
+/* Botón de acceso al formulario de alta */
+.btn_agregar {
+    text-decoration: none;
+    background-color: rgb(110, 60, 180); /* Color de marca principal (Morado) */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.2s; /* Suaviza el cambio de color y escalado */
+}
+
+/* Feedback interactivo compuesto: cambio de tono + relieve de tamaño */
+.btn_agregar:hover {
+    background-color: rgb(90, 40, 160);
+    transform: scale(1.05); /* Incremento sutil del 5% */
+}
+
+/* =============================================================================
+   3. ARQUITECTURA DE LA REJILLA DE DATOS (CSS GRID CORES)
+   ============================================================================= */
+/**
+ * MAQUETACIÓN SIMÉTRICA DE COLUMNAS:
+ * Distribución de ancho por celdas:
+ * ID (80px) | Razón Social (1fr - Flexible) | IRS/Estatus (100px) | Editar (100px) | Eliminar (100px)
+ */
+.encabezado,
+.fila {
+    display: grid;
+    grid-template-columns:
+        80px
+        1fr
+        100px
+        100px
+        100px;
+    align-items: center; /* Alineación simétrica vertical de los datos */
+}
+
+/* Renglón rígido de títulos de columna */
+.encabezado {
+    background-color: rgb(110, 60, 180);
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+}
+
+/* Filas dinámicas inyectadas desde la Base de Datos */
+.fila {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+/* Zebra Striping: Sombreado alternado en renglones pares para agilizar la lectura */
+.fila:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+
+/* Feedback táctil al posicionar el cursor sobre un registro */
+.fila:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+/* =============================================================================
+   4. INDICADORES Y ACCIONES UNITARIAS (CRUD & STATUS LINKS)
+   ============================================================================= */
+/* Columna especial para identificadores, estatus o claves (Ej: Impuestos / IRS) */
+.irs {
+    text-align: center;
+    font-size: 1.2rem;
+    color: rgb(60, 60, 60);
+}
+
+.accion {
+    text-align: center;
+}
+
+.accion a {
+    text-decoration: none;
+    font-size: 1.3rem; /* Escala inicial para iconos tipográficos */
+    display: inline-block;
+    transition: 0.2s;
+}
+
+/* Micro-interacción de crecimiento focalizado en el enlace de edición/borrado */
+.accion a:hover {
+    font-size: 1.5rem;
+}

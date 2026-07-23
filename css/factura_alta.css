@@ -1,0 +1,236 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - INTERFAZ DE CAPTURA (MAESTRO-DETALLE ALTA)
+   =============================================================================
+   @file:        factura/css/factura_alta.css
+   @description: Gobierna el diseño visual de la pantalla de creación de facturas.
+                 Soporta rejillas de captura paralela, tablas de conceptos en tiempo
+                 real, estados deshabilitados y compatibilidad con Select2.
+   @architecture: CSS Grid adaptativo, estados interactivos y overrides de plugins.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL Y CONTENEDOR (RESET & LAYOUT)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh;
+    padding: 30px;
+    margin: 3% 0;
+}
+
+/* Lienzo de captura principal */
+.contenedor {
+    width: 90%;
+    margin: auto;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, .2);
+}
+
+/* Títulos de secciones */
+h1 {
+    text-align: center;
+    color: rgb(110, 60, 180); /* Color corporativo */
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: rgb(110, 60, 180);
+}
+
+hr {
+    margin: 35px 0;
+    border: 0;
+    border-top: 1px solid rgb(220, 220, 220);
+}
+
+/* =============================================================================
+   2. FORMULARIOS DE CAPTURA (GRID DE DOBLE COLUMNA)
+   ============================================================================= */
+/* Bloques paralelos de información: Datos de cabecera e inserción de conceptos */
+.datosFactura,
+.datosDetalle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* -----------------------------------------------------------------------------
+   2.1 INPUTS NATIVOS Y ENFOQUE INTERACTIVO
+   ----------------------------------------------------------------------------- */
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+}
+
+/* Feedback de interacción: Resalta el input con sombra tenue morada al escribir */
+input:focus,
+select:focus {
+    outline: none;
+    border-color: rgb(110, 60, 180);
+    box-shadow: 0 0 5px rgba(110, 60, 180, .3);
+}
+
+/* =============================================================================
+   3. BOTONERA DE COMANDOS (ACCIONES DE INTERFAZ)
+   ============================================================================= */
+#btnAgregar,
+#btnGuardar {
+    margin-top: 20px;
+    background-color: transparent;
+    color: rgb(110, 60, 180);
+    border: 2px solid rgb(110, 60, 180);
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .2s;
+}
+
+#btnAgregar:hover,
+#btnGuardar:hover {
+    background-color: rgb(110, 60, 180);
+    color: white;
+}
+
+/* Salvaguarda de lógica de negocio: Bloqueo visual si el formulario es inválido */
+#btnGuardar:disabled {
+    opacity: .5;
+    cursor: not-allowed; /* Cambia el cursor a un icono de prohibición */
+}
+
+/* Botón de escape / retorno */
+.barra {
+    margin-bottom: 20px;
+}
+
+.btnRegresar {
+    text-decoration: none;
+    color: rgb(110, 60, 180);
+    border: 2px solid rgb(110, 60, 180);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.btnRegresar:hover {
+    background-color: rgb(110, 60, 180);
+    color: white;
+}
+
+/* =============================================================================
+   4. TABLA DINÁMICA DE CONCEPTOS TEMPORALES (GRID LIST)
+   ============================================================================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background-color: rgb(110, 60, 180);
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+tr:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+
+tr:hover {
+    background-color: rgb(225, 225, 225);
+}
+
+/* Estado de Tabla Vacía: Fila informativa por defecto cuando no hay conceptos vinculados */
+#sinDetalles td {
+    text-align: center;
+    color: rgb(120, 120, 120);
+    padding: 30px;
+}
+
+/* =============================================================================
+   5. RESUMEN CONTABLE (MONTO ACUMULADO)
+   ============================================================================= */
+.totales {
+    width: 300px;
+    margin-top: 30px;
+    margin-left: auto; /* Alineación magnética a la derecha */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, .1);
+}
+
+.totales p,
+.totales h3 {
+    margin-bottom: 12px;
+}
+
+/* =============================================================================
+   6. COMPATIBILIDAD EXTERNA: OVERRIDES DE SELECT2
+   ============================================================================= */
+/**
+ * Las siguientes clases anulan por completo los estilos embebidos que el plugin
+ * Select2 inyecta por defecto a través de JS, garantizando consistencia visual.
+ */
+.select2-container {
+    width: 100% !important; /* Fuerza a que ocupe todo el ancho de la columna del grid */
+}
+
+.select2-container .select2-selection--single {
+    height: 42px !important; /* Iguala la altura de los inputs nativos */
+    border: 1px solid rgb(180, 180, 180) !important;
+    border-radius: 5px !important;
+}
+
+/* Alineación vertical del texto seleccionado dentro de Select2 */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 40px !important;
+}
+
+/* Alineación vertical de la flecha selectora desplegable */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 40px !important;
+}
+
+/* =============================================================================
+   7. ADAPTABILIDAD RESPONSIVA (MEDIA QUERIES)
+   ============================================================================= */
+@media(max-width: 800px) {
+    /* Descompone las dos columnas y las apila al 100% para pantallas móviles */
+    .datosFactura,
+    .datosDetalle {
+        grid-template-columns: 1fr;
+    }
+
+    /* El resumen de importes abarca el ancho completo del lienzo */
+    .totales {
+        width: 100%;
+    }
+}

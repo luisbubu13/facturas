@@ -1,0 +1,119 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - HOJA DE CAPTURA DE AUTOBUSES (FORM LAYOUT)
+   =============================================================================
+   @file:        facturas/admin/css/autobuses/autobuses_alta.css
+   @description: Encargado de dar presentación visual, alineación y consistencia 
+                 estética al formulario de registro y actualización de unidades.
+   @architecture: Formulario Flexbox en columna con restricción de ancho máximo.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL Y ENTORNO LIENZO (RESET & CANVAS)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh;
+    margin: 3% 0;
+}
+
+/* Contenedor central de la sección */
+.contenedor {
+    width: 90%;
+    min-height: 90vh;
+    margin: 20px auto;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, .2);
+}
+
+/* Título superior de la vista */
+h2 {
+    color: rgb(110, 60, 180); /* Color corporativo */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* =============================================================================
+   2. CONTROLES DE RETORNO (NAVIGATION ACCENTS)
+   ============================================================================= */
+.barra {
+    margin-bottom: 20px; /* Separador del botón de escape */
+}
+
+/* Botón para regresar al listado general */
+.btnRegresar {
+    text-decoration: none;
+    background-color: rgb(110, 60, 180);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.2s;
+}
+
+.btnRegresar:hover {
+    background-color: rgb(90, 40, 160); /* Tono morado profundo */
+}
+
+/* =============================================================================
+   3. ARQUITECTURA E INTERNA DEL FORMULARIO (FLEX VERTICAL BOX)
+   ============================================================================= */
+form {
+    max-width: 600px;    /* Encapsula el ancho para evitar campos excesivamente anchos en desktop */
+    margin: 40px auto;   /* Centrado automático horizontal en la pantalla */
+    display: flex;
+    flex-direction: column; /* Apila de forma descendente los labels, inputs y botones */
+    gap: 10px;           /* Distancia automática fija entre componentes */
+}
+
+label {
+    font-weight: bold;
+    color: rgb(60, 60, 60);
+}
+
+/* -----------------------------------------------------------------------------
+   3.1 CAMPOS DE ENTRADA DE DATOS (INPUTS & SELECTS)
+   ----------------------------------------------------------------------------- */
+input,
+select {
+    padding: 12px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+/* Feedback de Foco: Resalta el borde del campo seleccionado con el morado corporativo */
+input:focus,
+select:focus {
+    outline: none;
+    border-color: rgb(110, 60, 180);
+}
+
+/* -----------------------------------------------------------------------------
+   3.2 CONTROL DE ENVÍO DE DATOS (SUBMIT BUTTON)
+   ----------------------------------------------------------------------------- */
+button {
+    margin-top: 15px;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: rgb(110, 60, 180);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: rgb(90, 40, 160);
+}

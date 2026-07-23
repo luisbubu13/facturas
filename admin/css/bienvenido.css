@@ -1,0 +1,68 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - INTERFAZ DE BIENVENIDA (LANDING VIEW)
+   =============================================================================
+   @file:        facturas/admin/css/bienvenido.css
+   @description: Hoja de estilos encargada de dar presentación visual a la pantalla
+                 de bienvenida del panel administrativo (Post-Login Dashboard).
+   @architecture: Flexbox centrado en flujo de columna vertical adaptativo.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL (RESET)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh;
+    margin: 3% 0; /* Margen de respiro para evitar colisiones perimetrales */
+}
+
+/* =============================================================================
+   2. LIENZO DEL DASHBOARD (MAIN CARD CONTROLLER)
+   ============================================================================= */
+.contenedor {
+    width: 90%;
+    min-height: 90vh; /* Se expande de forma elástica para rellenar casi todo el viewport */
+    margin: 20px auto;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, .2);
+}
+
+/* =============================================================================
+   3. SECCIÓN RECEPTORA INTERNA (FLEX CENTER BLOCK)
+   ============================================================================= */
+.contenido {
+    /* Flexbox: Centrado absoluto orientado en eje vertical */
+    display: flex;
+    flex-direction: column; /* Apila los elementos en formato de columna */
+    justify-content: center; /* Alineación del bloque al centro del eje vertical */
+    align-items: center;     /* Alineación de los textos al centro del eje horizontal */
+    min-height: 70vh;        /* Proporcionalidad interna para forzar el aire visual */
+}
+
+/* =============================================================================
+   4. TIPOGRAFÍAS DE ENTRADA (TITULARES)
+   ============================================================================= */
+/* Mensaje principal de bienvenida */
+h1 {
+    color: rgb(110, 60, 180); /* Color de identidad corporativa (Morado) */
+    margin-bottom: 20px;
+    font-size: 40px;
+    text-align: center;
+}
+
+/* Texto secundario informativo o nombre del operador */
+h2 {
+    color: rgb(60, 60, 60);   /* Tono gris oscuro neutral */
+    font-size: 30px;
+    font-weight: normal;      /* Descarga visual para contrastar con el h1 en negrita */
+    text-align: center;
+}

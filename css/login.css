@@ -1,0 +1,104 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - INTERFAZ DE AUTENTICACIÓN (LOGIN)
+   =============================================================================
+   @file:        facturas/css/login.css
+   @description: Gestiona la presentación visual de la pasarela de acceso.
+                 Diseño centrado, limpio, enfocado en la experiencia de usuario.
+   @architecture: Flexbox para centrado absoluto y flujo vertical de formulario.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL (RESET & NORMALIZACIÓN)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Fuerza a que el ancho/alto incluya paddings y bordes */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =============================================================================
+   2. ENTORNO DE FONDO (CANVAS / BODY)
+   ============================================================================= */
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh; /* Ocupa el 100% de la altura de la ventana del navegador */
+    
+    /* Flexbox: Centrado simétrico absoluto del contenedor hijo en pantalla */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;     /* Centrado vertical */
+    
+    margin: 3% 0; /* Margen de seguridad para pantallas muy pequeñas */
+}
+
+/* =============================================================================
+   3. TARJETA CONTENEDORA (LOGIN CARD)
+   ============================================================================= */
+.contenedor {
+    width: 400px;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    overflow: hidden; /* Obliga a la cabecera h2 a respetar las esquinas redondeadas */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Título superior de la tarjeta (Branding) */
+h2 {
+    background-color: rgb(110, 60, 180); /* Color corporativo (Morado) */
+    color: white;
+    text-align: center;
+    padding: 18px;
+}
+
+/* =============================================================================
+   4. ESTRUCTURA INTERNA DEL FORMULARIO
+   ============================================================================= */
+form {
+    padding: 25px;
+    display: flex;
+    flex-direction: column; /* Apila labels, inputs y el botón verticalmente */
+    gap: 10px;              /* Espaciado uniforme automático entre elementos hijos */
+}
+
+label {
+    font-weight: bold;
+    color: rgb(60, 60, 60);
+}
+
+/* -----------------------------------------------------------------------------
+   4.1 CAMPOS DE CAPTURA (INPUT TEXT / PASSWORD)
+   ----------------------------------------------------------------------------- */
+input {
+    padding: 10px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Estado activo: Resalta el campo cuando el operador tiene el foco en él */
+input:focus {
+    outline: none; /* Remueve la línea azul por defecto de los navegadores */
+    border-color: rgb(110, 60, 180); /* Cambia al morado de la marca */
+}
+
+/* -----------------------------------------------------------------------------
+   4.2 DISPARADOR DE ACCIÓN (SUBMIT BUTTON)
+   ----------------------------------------------------------------------------- */
+button {
+    margin-top: 15px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(110, 60, 180);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer; /* Transforma el puntero en "mano" para indicar elemento clickeable */
+    transition: 0.2s; /* Suaviza la transición tonal del hover */
+}
+
+/* Efecto Hover: Oscurece sutilmente el botón al posicionar el cursor encima */
+button:hover {
+    background-color: rgb(90, 40, 160);
+}

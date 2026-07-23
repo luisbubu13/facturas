@@ -1,0 +1,127 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - LISTADO MAESTRO DE EMPLEADOS (DATAGRID)
+   =============================================================================
+   @file:        facturas/admin/css/empleados/empleados_lista.css
+   @description: Gobierna la visualización tabular del personal activo, accesos
+                 CRUD de edición/baja y botoneras dinámicas de inserción.
+   @architecture: CSS Grid elástico para registros y Flexbox para layouts.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL Y ENTORNO LIENZO (RESET & CANVAS)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    padding: 30px 0;
+    margin: 3% 0;
+    
+    /* Flexbox: Centrado horizontal de seguridad para el contenedor maestro */
+    display: flex;
+    justify-content: center;
+}
+
+/* Lienzo contenedor principal del catálogo */
+.contenedor {
+    width: 90%;
+    min-height: 90vh;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    overflow: hidden; /* Recorta los fondos de los encabezados en las esquinas curvas */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* =============================================================================
+   2. BARRA DE COMANDOS SUPERIOR (ACTION DECK)
+   ============================================================================= */
+.barra_superior {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end; /* Envía el disparador de alta al extremo superior derecho */
+}
+
+/* Botón de inserción de nuevo personal */
+.btn_agregar {
+    text-decoration: none;
+    background-color: rgb(110, 60, 180); /* Color corporativo (Morado) */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.2s; /* Suaviza tanto la escala como el cambio de tonalidad */
+}
+
+/* Feedback interactivo compuesto: cambio de color + relieve de tamaño */
+.btn_agregar:hover {
+    background-color: rgb(90, 40, 160);
+    transform: scale(1.05); /* Incrementa el tamaño un 5% sutilmente */
+}
+
+/* =============================================================================
+   3. ARQUITECTURA DE LA TABLA DE DATOS (CSS GRID CORES)
+   ============================================================================= */
+/**
+ * REJILLA ELÁSTICA PROPORCIONAL:
+ * Mapeo exacto de celdas:
+ * ID (80px) | Nombre Completo (1fr - Espacio Restante) | Puesto/Rol (150px) | Editar (100px) | Eliminar (100px)
+ */
+.encabezado,
+.fila {
+    display: grid;
+    grid-template-columns: 
+        80px 
+        1fr 
+        150px 
+        100px 
+        100px;
+    align-items: center; /* Alineación simétrica vertical de los datos */
+}
+
+/* Fila estática de títulos de columna */
+.encabezado {
+    background-color: rgb(110, 60, 180);
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+}
+
+/* Renglones dinámicos extraídos de la Base de Datos */
+.fila {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+/* Zebra Striping: Sombreado alternado en renglones pares para facilitar la lectura */
+.fila:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+
+/* Feedback táctil al posicionar el cursor sobre un empleado específico */
+.fila:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+/* =============================================================================
+   4. BLOQUE DE ENLACES DE ACCIÓN CRITICAL (CRUD LINKS)
+   ============================================================================= */
+.accion {
+    text-align: center;
+}
+
+.accion a {
+    text-decoration: none;
+    font-size: 1.3rem; /* Dimensión base para fuentes tipográficas o de iconos */
+    transition: 0.2s;
+}
+
+/* Micro-animación de crecimiento focalizado en el enlace de edición/borrado */
+.accion a:hover {
+    font-size: 1.5rem;
+}

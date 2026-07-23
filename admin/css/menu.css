@@ -1,0 +1,101 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - MENÚ ADMINISTRATIVO (ADMIN NAVBAR)
+   =============================================================================
+   @file:        facturas/admin/css/menu.css
+   @description: Hoja de estilos encargada de la distribución e interactividad
+                 de la barra de navegación del panel de administración superior.
+   @architecture: Flexbox Lineal Orientado a Componentes con Empuje Magnético.
+   ============================================================================= */
+
+/* =============================================================================
+   1. CONTENEDOR MAESTRO DE LA BARRA DE NAVEGACIÓN
+   ============================================================================= */
+.menu {
+    width: 100%;
+    background-color: rgb(245, 242, 235);
+    border: 3px solid rgb(110, 60, 180); /* Borde acentuado con color corporativo */
+    border-radius: 10px;
+    
+    /* Flexbox: Alineación lineal de todos los bloques internos en un renglón */
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos al centro */
+    justify-content: center;
+    
+    padding: 10px 20px;
+    gap: 30px; /* Separación por defecto entre el logo y el contenedor de opciones */
+    margin-bottom: 30px;
+}
+
+/* =============================================================================
+   2. IDENTIDAD CORPORATIVA (BRANDING LOGO)
+   ============================================================================= */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain; /* Previene la distorsión de la imagen adaptándola a la caja */
+    display: block;
+}
+
+/* =============================================================================
+   3. BOTONERA DE OPCIONES DINÁMICAS (CATÁLOGOS CRUD)
+   ============================================================================= */
+.opciones {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaciado fijo entre pestañas administrativas */
+    flex-wrap: wrap; /* Permite el salto de línea en pantallas con menor resolución */
+}
+
+/* Enlaces de navegación individuales (Pestañas modo Outline) */
+.opciones a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remueve el subrayado HTML nativo */
+    color: rgb(110, 60, 180);
+    font-weight: bold;
+    font-size: x-large; /* Tamaño acentuado para lectura ágil */
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: .2s; /* Transición suave para cambios de color en hover */
+}
+
+/* Transición invertida: Rellena el botón con el color de la marca */
+.opciones a:hover {
+    background-color: rgb(110, 60, 180);
+    color: white;
+}
+
+/* =============================================================================
+   4. CONTROL DE SESIÓN Y CIERRE (LOGOUT COMPONENT)
+   ============================================================================= */
+/**
+ * TRUCO DE DISEÑO FLEXBOX:
+ * Al aplicar 'margin-left: auto' dentro de un flujo horizontal Flex, la caja .logout
+ * absorbe todo el espacio disponible a su izquierda y se recorre al extremo derecho.
+ */
+.logout {
+    margin-left: auto;
+}
+
+/* Botón sólido de salida de seguridad */
+.logout a {
+    text-decoration: none;
+    color: white;
+    background-color: rgb(110, 60, 180);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+/* Oscurecimiento sutil del tono morado para denotar acción de click */
+.logout a:hover {
+    background-color: rgb(90, 40, 160);
+}

@@ -1,0 +1,155 @@
+/* =============================================================================
+   SISTEMA DE CONTROL DE FACTURAS - LISTADO MAESTRO DE AUTOBUSES (DATAGRID)
+   =============================================================================
+   @file:        facturas/admin/css/autobuses/autobuses_lista.css
+   @description: Gobierna la visualización tabular de las unidades vehiculares,
+                 los accesos de manipulación CRUD y los bloques de paginación.
+   @architecture: CSS Grid proporcional para columnas y Flexbox para componentes.
+   ============================================================================= */
+
+/* =============================================================================
+   1. REGULACIÓN GLOBAL Y ENTORNO LIENZO (RESET & CANVAS)
+   ============================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+    min-height: 100vh;
+    margin: 3% 0;
+}
+
+/* Contenedor central del módulo */
+.contenedor {
+    width: 90%;
+    min-height: 90vh;
+    margin: 20px auto;
+    background-color: rgb(245, 242, 235);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, .2);
+}
+
+/* =============================================================================
+   2. BARRA DE COMANDOS SUPERIOR (ACTION DECK)
+   ============================================================================= */
+.barra_superior {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón de inserción al extremo derecho */
+}
+
+/* Disparador para invocar el formulario de Alta */
+.btn_agregar {
+    text-decoration: none;
+    background-color: rgb(110, 60, 180); /* Color corporativo */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.btn_agregar:hover {
+    background-color: rgb(90, 40, 160); /* Tono morado profundo */
+}
+
+/* =============================================================================
+   3. ARQUITECTURA DE LA TABLA DE DATOS (CSS GRID CORES)
+   ============================================================================= */
+/**
+ * MAQUETACIÓN SIMÉTRICA DE COLUMNAS:
+ * Distribuye de forma rígida los anchos de celda:
+ * ID (80px) | Económico/Placas (250px) | Razón Social/Línea (Flexible 1fr) | Editar (100px) | Eliminar (100px)
+ */
+.encabezado,
+.fila {
+    display: grid;
+    grid-template-columns: 
+        80px 
+        250px 
+        1fr 
+        100px 
+        100px;
+    align-items: center; /* Centrado vertical interno de datos */
+}
+
+/* Fila de títulos de columna */
+.encabezado {
+    background-color: rgb(110, 60, 180);
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 6px 6px 0 0; /* Bordes superiores redondeados */
+}
+
+/* Renglones dinámicos del query */
+.fila {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+/* Estilo Zebra: Alterna fondos para agilizar el rastreo visual del operador */
+.fila:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+
+/* Feedback interactivo de selección de registro */
+.fila:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+/* =============================================================================
+   4. BLOQUE DE ENLACES DE ACCIÓN UNITARIA (CRUD LINKS)
+   ============================================================================= */
+.accion {
+    text-align: center;
+}
+
+.accion a {
+    text-decoration: none;
+    font-size: 1.3rem; /* Escala inicial para iconos o texto de acción */
+    transition: .2s;
+}
+
+/* Efecto micro-interactivo de crecimiento al posicionarse sobre el enlace */
+.accion a:hover {
+    font-size: 1.5rem;
+}
+
+/* =============================================================================
+   5. COMPONENTE DE NAVEGACIÓN ENTRE BLOQUES (PAGINADOR MAESTRO)
+   ============================================================================= */
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
+    flex-wrap: wrap; /* Soporta el salto de línea elástico si hay demasiadas páginas */
+}
+
+.paginacion a {
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    background-color: rgb(230, 230, 230); /* Fondo neutral pasivo */
+    color: black;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.paginacion a:hover {
+    background-color: rgb(110, 60, 180);
+    color: white;
+}
+
+/* Estado de página actual/activa */
+.paginacion .actual {
+    background-color: rgb(110, 60, 180);
+    color: white;
+}
