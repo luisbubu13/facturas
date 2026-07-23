@@ -18,10 +18,10 @@ date_default_timezone_set('America/Mexico_City');
 /* =============================================================================
    1. DEFINICIÓN DE CONSTANTES GLOBLALES DE ACCESO (ENTORNO LOCAL)
    ============================================================================= */
-define("HOST",    'localhost:3306'); // Dirección loopback y puerto por defecto de MySQL/MariaDB
+define("HOST",    'db'); // Dirección loopback y puerto por defecto de MySQL/MariaDB
 define("BD",      'facturas');       // Nombre de la base de datos relacional del sistema
 define("USER_BD", 'root');           // Identificador del usuario Administrador del motor
-define("PASS_BD", '');               // Contraseña asociada (Vía de desarrollo local sin clave)
+define("PASS_BD", 'root');               // Contraseña asociada (Vía de desarrollo local sin clave)
 
 /* =============================================================================
    2. FUNCIÓN CONSTRUCTORA DEL PUNTERO DE CONEXIÓN

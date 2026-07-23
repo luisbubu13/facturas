@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+
+    container_name: facturas_web
+
+    restart: unless-stopped
+
+    ports:
+      - "9000:80"
+
+    volumes:
+      - ./:/var/www/html
+
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:11.4
+
+    container_name: facturas_db
+
+    restart: unless-stopped
+
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: facturas
+      TZ: America/Mexico_City
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./admin/facturas.sql:/docker-entrypoint-initdb.d/facturas.sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+
+    container_name: facturas_phpmyadmin
+
+    restart: unless-stopped
+
+    ports:
+      - "8081:80"
+
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+
+    depends_on:
+      - db
+
+volumes:
+  mariadb_data:
