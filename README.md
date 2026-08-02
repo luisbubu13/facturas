@@ -2,7 +2,7 @@
 
 ## Requisitos
 
-- Docker Desktop
+- Docker Desktop o Docker Engine y Docker Compose
 - Git
 
 ## Instalación
@@ -20,7 +20,7 @@ http://localhost:9000
 
 phpMyAdmin:
 
-http://localhost:8081
+http://localhost:9001
 
 Usuario: root
 
