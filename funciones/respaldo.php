@@ -3,69 +3,132 @@
 require_once("../admin/funciones/conecta.php");
 require_once("valida_sesion.php");
 
-/*
-|--------------------------------------------------------------------------
-| CONFIGURACIÓN
-|--------------------------------------------------------------------------
-*/
+/*=========================================================
+=            CONFIGURACIÓN                                =
+=========================================================*/
 
-$base = "facturas";
-$usuario = "root";
-$password = "";
+$dump = "/usr/bin/mariadb-dump";
 
-/*
-| Ruta donde está mysqldump
-| Cambia esta ruta si tu XAMPP está instalado en otro lugar.
-*/
+if(!file_exists($dump)){
+    $dump = "/usr/bin/mysqldump";
+}
 
-$mysqldump = "C:\\xampp\\mysql\\bin\\mysqldump.exe";
+if(!file_exists($dump)){
+    header("Location: ../respaldos.php?error=1");
+    exit;
+}
 
-/*
-| Archivo destino
-*/
+$host     = HOST;
+$base     = BD;
+$usuario  = USER_BD;
+$password = PASS_BD;
 
-$archivo = dirname(__DIR__) . "/admin/facturas.sql";
+/*=========================================================
+=            CARPETA DE RESPALDOS                         =
+=========================================================*/
 
-/*
-|--------------------------------------------------------------------------
-| COMANDO
-|--------------------------------------------------------------------------
-*/
+$carpeta = dirname(__DIR__) . "/admin/backups";
+
+if(!is_dir($carpeta)){
+    mkdir($carpeta, 0777, true);
+}
+
+/*=========================================================
+=            NOMBRE DEL ARCHIVO                           =
+=========================================================*/
+
+$fecha = date("Y-m-d_H-i-s");
+
+$sqlFile = $carpeta . "/facturas_" . $fecha . ".sql";
+$gzFile  = $sqlFile . ".gz";
+
+/*=========================================================
+=            GENERAR RESPALDO                             =
+=========================================================*/
 
 $comando =
-    "\"$mysqldump\" " .
-    "--user=$usuario " .
-    "--password=$password " .
-    "$base > \"$archivo\"";
-
-/*
-|--------------------------------------------------------------------------
-| EJECUTAR
-|--------------------------------------------------------------------------
-*/
+    $dump .
+    " --host=db" .
+    " --user=" . $usuario .
+    " --password=" . $password .
+    " --single-transaction" .
+    " --routines" .
+    " --events" .
+    " --triggers" .
+    " --default-character-set=utf8mb4" .
+    " " . $base .
+    " > " . escapeshellarg($sqlFile);
 
 exec($comando, $salida, $resultado);
 
-if($resultado == 0){
+if($resultado !== 0){
 
-    echo "
-    <script>
+    if(file_exists($sqlFile)){
+        unlink($sqlFile);
+    }
 
-        alert('Copia de seguridad creada correctamente.');
-
-        location.href='../facturas.php';
-
-    </script>";
-
-}else{
-
-    echo "
-    <script>
-
-        alert('No fue posible generar la copia de seguridad.');
-
-        location.href='../facturas.php';
-
-    </script>";
+    header("Location: ../respaldos.php?error=1");
+    exit;
 }
-?>
+
+/*=========================================================
+=            COMPRIMIR (.GZ)                              =
+=========================================================*/
+
+$origen = fopen($sqlFile, "rb");
+
+if(!$origen){
+
+    header("Location: ../respaldos.php?error=2");
+    exit;
+}
+
+$destino = gzopen($gzFile, "wb9");
+
+while(!feof($origen)){
+
+    gzwrite(
+        $destino,
+        fread($origen, 1024 * 512)
+    );
+}
+
+fclose($origen);
+gzclose($destino);
+
+/*=========================================================
+=            ELIMINAR SQL TEMPORAL                        =
+=========================================================*/
+
+unlink($sqlFile);
+
+/*=========================================================
+=            CONSERVAR SOLO LOS ÚLTIMOS 30                =
+=========================================================*/
+
+$archivos = glob($carpeta . "/facturas_*.sql.gz");
+
+if(count($archivos) > 30){
+
+    usort($archivos, function($a, $b){
+
+        return filemtime($b) - filemtime($a);
+
+    });
+
+    $viejos = array_slice($archivos, 30);
+
+    foreach($viejos as $archivo){
+
+        @unlink($archivo);
+
+    }
+}
+
+/*=========================================================
+=            REDIRECCIÓN                                  =
+=========================================================*/
+
+header("Location: ../respaldos.php?ok=1");
+
+exit;

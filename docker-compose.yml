@@ -11,6 +11,9 @@ services:
 
     restart: unless-stopped
 
+    environment:
+      TZ: America/Mexico_City
+
     ports:
       - "9000:80"
 
@@ -37,7 +40,6 @@ services:
 
     volumes:
       - mariadb_data:/var/lib/mysql
-      - ./admin/facturas.sql:/docker-entrypoint-initdb.d/facturas.sql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -47,7 +49,7 @@ services:
     restart: unless-stopped
 
     ports:
-      - "8081:80"
+      - "9001:80"
 
     environment:
       PMA_HOST: db

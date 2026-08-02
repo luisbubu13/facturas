@@ -33,10 +33,10 @@ $nombre = $_SESSION['nombreUser'];
         <div class="accionesUsuario">
 
             <a
-                href="funciones/respaldo.php"
+                href="respaldos.php"
                 class="btnBackup">
 
-                Copia de seguridad
+                Respaldos
 
             </a>
 

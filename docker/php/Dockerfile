@@ -1,6 +1,7 @@
 FROM php:8.3-apache
 
 RUN apt-get update && apt-get install -y \
+    tzdata \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
@@ -15,6 +16,8 @@ RUN apt-get update && apt-get install -y \
         pdo_mysql \
         gd \
         zip
+
+ENV TZ=America/Mexico_City
 
 RUN a2enmod rewrite
 
