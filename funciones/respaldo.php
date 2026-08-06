@@ -4,19 +4,23 @@ require_once("../admin/funciones/conecta.php");
 require_once("valida_sesion.php");
 
 /*=========================================================
-=            CONFIGURACIÓN                                =
+=            BUSCAR AUTOMÁTICAMENTE EL DUMP               =
 =========================================================*/
 
-$dump = "/usr/bin/mariadb-dump";
+$dump = trim(shell_exec("command -v mariadb-dump"));
 
-if(!file_exists($dump)){
-    $dump = "/usr/bin/mysqldump";
+if($dump == ""){
+    $dump = trim(shell_exec("command -v mysqldump"));
 }
 
-if(!file_exists($dump)){
+if($dump == ""){
     header("Location: ../respaldos.php?error=1");
     exit;
 }
+
+/*=========================================================
+=            DATOS DE CONEXIÓN                            =
+=========================================================*/
 
 $host     = HOST;
 $base     = BD;
@@ -47,21 +51,27 @@ $gzFile  = $sqlFile . ".gz";
 =========================================================*/
 
 $comando =
-    $dump .
-    " --host=db" .
-    " --user=" . $usuario .
-    " --password=" . $password .
+    escapeshellcmd($dump) .
+    " --host=" . escapeshellarg($host) .
+    " --user=" . escapeshellarg($usuario) .
+    " --password=" . escapeshellarg($password) .
     " --single-transaction" .
     " --routines" .
     " --events" .
     " --triggers" .
     " --default-character-set=utf8mb4" .
-    " " . $base .
-    " > " . escapeshellarg($sqlFile);
+    " " . escapeshellarg($base) .
+    " > " . escapeshellarg($sqlFile) .
+    " 2>&1";
 
 exec($comando, $salida, $resultado);
 
 if($resultado !== 0){
+
+    file_put_contents(
+        $carpeta . "/error_respaldo.log",
+        implode(PHP_EOL, $salida)
+    );
 
     if(file_exists($sqlFile)){
         unlink($sqlFile);
@@ -130,5 +140,4 @@ if(count($archivos) > 30){
 =========================================================*/
 
 header("Location: ../respaldos.php?ok=1");
-
 exit;

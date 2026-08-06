@@ -2,6 +2,7 @@ FROM php:8.3-apache
 
 RUN apt-get update && apt-get install -y \
     tzdata \
+    mariadb-client \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
@@ -15,7 +16,9 @@ RUN apt-get update && apt-get install -y \
         pdo \
         pdo_mysql \
         gd \
-        zip
+        zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV TZ=America/Mexico_City
 
