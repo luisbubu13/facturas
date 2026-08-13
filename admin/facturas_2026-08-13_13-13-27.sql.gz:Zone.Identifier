@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=http://10.1.14.67:9000/respaldos.php
+HostUrl=http://10.1.14.67:9000/admin/backups/facturas_2026-08-13_13-13-27.sql.gz
