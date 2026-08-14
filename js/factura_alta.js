@@ -1,6 +1,6 @@
 /**
  * -----------------------------------------------------------------------------
- * SISTEMA DE CONTROL DE FACTURAS - ARCHIVO DE CONTROL JAVASCRIPT
+ * SISTEMA DE CONTROL DE FACTURAS
  * -----------------------------------------------------------------------------
  * @file: facturas/js/factura_alta.js
  * @description: Controla la reactividad del formulario de alta de facturas.
@@ -18,7 +18,7 @@ $(document).ready(function(){
     /* =============================================================================
        1. INICIALIZACIÓN DE COMPONENTES DE INTERFAZ
        ============================================================================= */
-    // Transforma los elementos select tradicionales en cajas de búsqueda predictiva
+
     $('.buscador').select2({
         width: '100%',
         language: {
@@ -28,17 +28,38 @@ $(document).ready(function(){
         }
     });
 
-    // Ejecución inicial para setear los contadores e inputs en ceros ($0.00)
     actualizarTotales();
 
+
     /* =============================================================================
-       2. CONTROLADORES DE EVENTOS (EVENT HANDLERS)
+       2. BLOQUEO DEL SUBMIT MEDIANTE ENTER
+       ============================================================================= */
+
+    /**
+     * Evita que presionar Enter dentro de cualquier campo del formulario
+     * provoque el envío automático de la factura.
+     *
+     * La factura solamente podrá guardarse mediante el botón
+     * "Guardar factura".
+     */
+    $("#formFactura").on("keydown", function(e){
+
+        if(e.key === "Enter"){
+
+            e.preventDefault();
+
+            return false;
+        }
+
+    });
+
+
+    /* =============================================================================
+       3. CONTROLADORES DE EVENTOS
        ============================================================================= */
 
     /**
      * Evento: Adición de Conceptos al Detalle
-     * Extrae los valores de los campos de captura, valida la consistencia de los datos
-     * y renderiza la nueva fila directamente en el árbol del DOM.
      */
     $("#btnAgregar").click(function(){
 
@@ -51,45 +72,57 @@ $(document).ready(function(){
         let concepto = $.trim($("#concepto").val());
         let subtotal = parseFloat($("#subtotal").val());
 
-        // Validación estricta: Presencia obligatoria de la descripción del concepto
+        // Validación estricta: Presencia obligatoria del concepto
         if(concepto == ""){
+
             alert("Ingrese el concepto.");
             $("#concepto").focus();
+
             return;
         }
 
-        // Validación estricta: El subtotal debe ser un número real mayor a cero
+        // Validación estricta: El subtotal debe ser mayor a cero
         if(isNaN(subtotal) || subtotal <= 0){
+
             alert("Ingrese un subtotal válido.");
             $("#subtotal").focus();
+
             return;
         }
 
-        // Si no se vincula un autobús, se define un formateador visual genérico
+        // Si no se vincula un autobús
         if(id_autobus == ""){
+
             unidad = "-----";
+
         }
 
-        // Elimina el row comodín que indica una tabla vacía
+        // Elimina la fila que indica que no existen detalles
         $("#sinDetalles").remove();
 
-        // Estructuración del objeto hijo
+
+        // Construcción del objeto detalle
         let detalle = {
+
             id_autobus: id_autobus,
             unidad: unidad,
             orden: orden,
             oste: oste,
             concepto: concepto,
             subtotal: subtotal
+
         };
 
-        // Mutación del estado global: se inserta el nuevo concepto
+
+        // Agrega el detalle al arreglo
         detalles.push(detalle);
 
-        // Obtención del índice actual para asociarlo directamente a la fila HTML
+
+        // Índice actual
         let indice = detalles.length - 1;
 
-        // Construcción dinámica del nodo tr mediante plantillas de cadena (Template Literals)
+
+        // Construcción de la fila
         let fila = `
             <tr data-indice="${indice}">
                 <td>${unidad}</td>
@@ -103,45 +136,61 @@ $(document).ready(function(){
             </tr>
         `;
 
-        // Inyección del nodo en el cuerpo de la tabla
+
+        // Inserta la fila
         $("#tablaDetalles tbody").append(fila);
 
-        // Reset de campos y recalculo financiero
+
+        // Limpia los campos
         limpiarDetalle();
+
+
+        // Actualiza los totales
         actualizarTotales();
+
     });
+
 
     /**
      * Evento Delegado: Eliminación de Conceptos
-     * Utiliza la delegación de eventos de jQuery para escuchar clics en botones
-     * destructivos que fueron creados de manera dinámica posterior a la carga inicial.
      */
     $(document).on("click", ".btnEliminar", function(){
 
         let fila = $(this).closest("tr");
-        let indice = fila.data("indice"); // Recupera la posición del elemento en el arreglo
 
-        // Remueve el objeto específico del estado global
+        let indice = fila.data("indice");
+
+
+        // Elimina el detalle del arreglo
         detalles.splice(indice, 1);
 
-        // Reestructura los índices del DOM y recalcula impuestos
+
+        // Reconstruye la tabla
         reconstruirTabla();
+
+
+        // Recalcula totales
         actualizarTotales();
+
     });
+
 
     /**
      * Evento: Cambio de Proveedor
-     * Si el usuario cambia el proveedor, se disparan de nuevo los totales ya que
-     * las reglas de negocio dictan que la retención de IRS depende de esta entidad.
      */
     $("#id_provedor").change(function(){
+
         actualizarTotales();
+
     });
 
+
     /**
-     * Evento: Envío del Formulario (Submit Guard)
-     * Valida el encabezado maestro de la factura y serializa la colección de objetos
-     * dentro del input oculto para su lectura nativa desde PHP.
+     * Evento: Envío del Formulario
+     *
+     * IMPORTANTE:
+     * Este evento solamente se ejecutará cuando se presione
+     * explícitamente el botón "Guardar factura".
      */
     $("#formFactura").submit(function(e){
 
@@ -150,122 +199,202 @@ $(document).ready(function(){
         let fecha = $("#fecha").val();
         let folio = $.trim($("#folio").val());
 
-        // Validaciones de formulario del lado del cliente
+
+        // Validación de empresa
         if(empresa == ""){
+
             alert("Seleccione la empresa.");
-            e.preventDefault(); // Detiene el envío HTTP
+
+            e.preventDefault();
+
             return false;
+
         }
 
+
+        // Validación de proveedor
         if(proveedor == ""){
+
             alert("Seleccione el proveedor.");
+
             e.preventDefault();
+
             return false;
+
         }
 
+
+        // Validación de fecha
         if(fecha == ""){
+
             alert("Seleccione la fecha.");
+
             e.preventDefault();
+
             return false;
+
         }
 
+
+        // Validación de folio
         if(folio == ""){
+
             alert("Ingrese el folio.");
+
             e.preventDefault();
+
             return false;
+
         }
 
-        // Restricción de negocio: No se permiten facturas sin conceptos
+
+        // Validación de detalles
         if(detalles.length == 0){
+
             alert("Debe agregar al menos un detalle.");
+
             e.preventDefault();
+
             return false;
+
         }
+
 
         /**
-         * SERIALIZACIÓN CLAVE: Convierte el arreglo multidimensional 'detalles'
-         * en un string JSON legible y lo deposita en el input hidden '#detalles'.
+         * SERIALIZACIÓN
+         *
+         * Convierte el arreglo de detalles a JSON
+         * para enviarlo al PHP.
          */
         $("#detalles").val(JSON.stringify(detalles));
+
     });
 
 });
 
+
 /* =============================================================================
-   3. FUNCIONES DE SOPORTE Y LÓGICA DE NEGOCIO
+   4. FUNCIONES DE SOPORTE
    ============================================================================= */
 
+
 /**
- * Limpia los inputs del bloque de agregación para permitir capturas consecutivas.
+ * Limpia los campos utilizados para agregar un detalle.
  */
 function limpiarDetalle(){
-    $("#id_autobus").val("").trigger("change"); // Deshace la selección en Select2
+
+    $("#id_autobus").val("").trigger("change");
+
     $("#orden").val("");
+
     $("#oste").val("");
+
     $("#concepto").val("");
+
     $("#subtotal").val("");
 
-    $("#concepto").focus(); // Devuelve el foco al inicio del flujo de captura
+
+    // Regresa el foco al concepto
+    $("#concepto").focus();
+
 }
 
+
 /**
- * Motor Aritmético: Calcula y despliega los importes de la Factura en caliente.
+ * Motor de cálculo de totales.
  */
 function actualizarTotales(){
 
     let subtotalGeneral = 0;
 
-    // Sumatoria cíclica de los subtotales en memoria
+
+    // Sumatoria de subtotales
     detalles.forEach(function(det){
+
         subtotalGeneral += parseFloat(det.subtotal);
+
     });
 
-    // Cálculo del Impuesto al Valor Agregado (16%)
+
+    // IVA 16%
     let iva = subtotalGeneral * 0.16;
+
+
+    // IRS
     let irs = 0;
 
-    // Inspección de banderas fiscales del Proveedor vía atributos Data del DOM
+
     let proveedor = $("#id_provedor option:selected");
+
+
     if(proveedor.data("irs") == 1){
-        // Si el proveedor retiene, se aplica la tasa del 1.25% sobre el subtotal
+
         irs = subtotalGeneral * 0.0125;
+
     }
 
-    // Neto definitivo
+
+    // Total
     let total = subtotalGeneral + iva - irs;
 
-    // Renderizado e inyección de los valores formateados a dos posiciones decimales
-    $("#txtSubtotal").html("$" + subtotalGeneral.toFixed(2));
-    $("#txtIVA").html("$" + iva.toFixed(2));
-    $("#txtIRS").html("$" + irs.toFixed(2));
-    $("#txtTotal").html("$" + total.toFixed(2));
 
-    // Deshabilita o habilita el botón de envío si la lista de conceptos está vacía
-    $("#btnGuardar").prop("disabled", detalles.length == 0);
+    // Renderizado
+    $("#txtSubtotal").html(
+        "$" + subtotalGeneral.toFixed(2)
+    );
+
+    $("#txtIVA").html(
+        "$" + iva.toFixed(2)
+    );
+
+    $("#txtIRS").html(
+        "$" + irs.toFixed(2)
+    );
+
+    $("#txtTotal").html(
+        "$" + total.toFixed(2)
+    );
+
+
+    // Habilita el botón solamente cuando existe al menos un detalle
+    $("#btnGuardar").prop(
+        "disabled",
+        detalles.length == 0
+    );
+
 }
 
+
 /**
- * Sincronizador de Índices del DOM.
- * Cuando se elimina un row intermedio, los índices de la matriz cambian. Esta función 
- * limpia el HTML de la tabla y lo vuelve a construir emparejando los atributos 
- * 'data-indice' de los renglones con las nuevas posiciones reales del array.
+ * Reconstruye la tabla después de eliminar un detalle.
  */
 function reconstruirTabla(){
-    let tbody = $("#tablaDetalles tbody");
-    tbody.html(""); // Vaciado completo del contenedor
 
-    // Si la matriz quedó vacía tras la remoción, devuelve la fila de advertencia
+    let tbody = $("#tablaDetalles tbody");
+
+
+    // Limpia la tabla
+    tbody.html("");
+
+
+    // Si ya no existen detalles
     if(detalles.length == 0){
+
         tbody.html(`
             <tr id="sinDetalles">
-                <td colspan="6">No hay detalles agregados.</td>
+                <td colspan="6">
+                    No hay detalles agregados.
+                </td>
             </tr>
         `);
+
         return;
     }
 
-    // Re-renderizado secuencial indexado
+
+    // Reconstruye las filas
     detalles.forEach(function(det, i){
+
         let fila = `
             <tr data-indice="${i}">
                 <td>${det.unidad}</td>
@@ -274,10 +403,16 @@ function reconstruirTabla(){
                 <td>${det.concepto}</td>
                 <td>$${parseFloat(det.subtotal).toFixed(2)}</td>
                 <td>
-                    <button type="button" class="btnEliminar">🗑️</button>
+                    <button type="button" class="btnEliminar">
+                        🗑️
+                    </button>
                 </td>
             </tr>
         `;
+
+
         tbody.append(fila);
+
     });
+
 }

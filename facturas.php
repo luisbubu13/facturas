@@ -152,7 +152,12 @@ $resultado = $con->query($sql);
     <?php include("menu.php"); ?>
 
     <div class="encabezado">
-        <div></div>
+        <div>
+            <input
+                type="checkbox"
+                id="chkTodas"
+                title="Seleccionar todas las facturas de esta página">
+        </div>
         <div>Proveedor</div>
         <div>Empresa</div>
         <div>Fecha</div>
@@ -268,7 +273,7 @@ $resultado = $con->query($sql);
 
         <?php if($pagina > 1){ ?>
             <a href="?pagina=<?= $i ?>&fecha_inicio=<?= urlencode($fecha_inicio) ?>&fecha_fin=<?= urlencode($fecha_fin) ?>&id_provedor=<?= $id_provedor ?>&id_empresa=<?= $id_empresa ?>&folio=<?= urlencode($folio) ?>&estado=<?= urlencode($estado) ?>">
-                ← Anterior
+                ←
             </a>
         <?php } ?>
 
@@ -282,7 +287,7 @@ $resultado = $con->query($sql);
 
         <?php if($pagina < $total_paginas){ ?>
             <a href="?pagina=<?= $pagina + 1 ?>&fecha_inicio=<?= urlencode($fecha_inicio) ?>&fecha_fin=<?= urlencode($fecha_fin) ?>&id_provedor=<?= $id_provedor ?>&id_empresa=<?= $id_empresa ?>&folio=<?= urlencode($folio) ?>&estado=<?= urlencode($estado) ?>">
-                Siguiente →
+                →
             </a>
         <?php } ?>
 

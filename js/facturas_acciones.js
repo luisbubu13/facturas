@@ -138,3 +138,34 @@ $(document).ready(function () {
     }
 
 });
+
+$(document).ready(function(){
+
+    // ==========================================================
+    // SELECCIONAR / DESELECCIONAR TODAS LAS FACTURAS
+    // ==========================================================
+
+    $("#chkTodas").on("change", function(){
+
+        $(".chkFactura").prop("checked", this.checked);
+
+    });
+
+
+    // ==========================================================
+    // ACTUALIZAR CHECKBOX GENERAL AL CAMBIAR UNA FACTURA
+    // ==========================================================
+
+    $(document).on("change", ".chkFactura", function(){
+
+        const total = $(".chkFactura").length;
+        const seleccionadas = $(".chkFactura:checked").length;
+
+        $("#chkTodas").prop(
+            "checked",
+            total > 0 && total === seleccionadas
+        );
+
+    });
+
+});
