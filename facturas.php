@@ -278,8 +278,7 @@ $resultado = $con->query($sql);
         <?php } ?>
 
         <?php for($i = 1; $i <= $total_paginas; $i++){ ?>
-            <a
-    href="?pagina=<?= $i ?>&fecha_inicio=<?= urlencode($fecha_inicio) ?>&fecha_fin=<?= urlencode($fecha_fin) ?>&id_provedor=<?= $id_provedor ?>&id_empresa=<?= $id_empresa ?>&folio=<?= urlencode($folio) ?>&estado=<?= urlencode($estado) ?>"
+            <a href="?pagina=<?= $i ?>&fecha_inicio=<?= urlencode($fecha_inicio) ?>&fecha_fin=<?= urlencode($fecha_fin) ?>&id_provedor=<?= $id_provedor ?>&id_empresa=<?= $id_empresa ?>&folio=<?= urlencode($folio) ?>&estado=<?= urlencode($estado) ?>"
                 class="<?= ($i == $pagina) ? 'actual' : '' ?>">
                 <?= $i ?>
             </a>
